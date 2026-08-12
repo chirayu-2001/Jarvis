@@ -41,9 +41,9 @@ export const JournalCompose: React.FC<JournalComposeProps> = ({ onSubmit }) => {
           rows={4}
           style={{
             width: '100%',
-            background: '#090a0f',
-            border: '1px solid #202534',
-            color: '#f3f4f8',
+            background: '#0d0d0d',
+            border: '1px solid #3d2e1e',
+            color: '#f0e6d3',
             padding: '0.75rem',
             fontSize: '0.85rem',
             lineHeight: 1.5,
@@ -52,7 +52,7 @@ export const JournalCompose: React.FC<JournalComposeProps> = ({ onSubmit }) => {
         />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '0.75rem', color: '#8b94a8', fontFamily: 'monospace' }}>
+          <span style={{ fontSize: '0.75rem', color: '#b89b6a', fontFamily: 'monospace' }}>
             Zero shame. Curiosity {'>'} compliance.
           </span>
           <button

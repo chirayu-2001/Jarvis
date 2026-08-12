@@ -24,7 +24,7 @@ export const PlanActions: React.FC<PlanActionsProps> = ({ currentMode, onRefacto
 
   return (
     <div className="flex flex-wrap items-center gap-2 pt-2">
-      <span className="text-[10px] font-mono uppercase text-[#8b94a8] mr-2">
+      <span className="text-[10px] font-mono uppercase text-[#b89b6a] mr-2">
         Refactor Execution Pace:
       </span>
 
@@ -34,8 +34,8 @@ export const PlanActions: React.FC<PlanActionsProps> = ({ currentMode, onRefacto
         disabled={loadingMode !== null}
         className={`px-3 py-1.5 text-xs font-mono uppercase border transition cursor-pointer flex items-center space-x-1.5 rounded ${
           currentMode === 'lighter'
-            ? 'bg-[#818cf8] text-[#090a0f] border-[#818cf8] font-bold'
-            : 'bg-[#161a26] text-[#cbd2e1] border-[#202534] hover:border-[#818cf8]'
+            ? 'bg-[#f0a500] text-[#0d0d0d] border-[#f0a500] font-bold'
+            : 'bg-[#2a2118] text-[#dbb97a] border-[#3d2e1e] hover:border-[#f0a500]'
         }`}
       >
         <Feather className="w-3.5 h-3.5" />
@@ -48,8 +48,8 @@ export const PlanActions: React.FC<PlanActionsProps> = ({ currentMode, onRefacto
         disabled={loadingMode !== null}
         className={`px-3 py-1.5 text-xs font-mono uppercase border transition cursor-pointer flex items-center space-x-1.5 rounded ${
           currentMode === 'balanced'
-            ? 'bg-[#818cf8] text-[#090a0f] border-[#818cf8] font-bold'
-            : 'bg-[#161a26] text-[#cbd2e1] border-[#202534] hover:border-[#818cf8]'
+            ? 'bg-[#f0a500] text-[#0d0d0d] border-[#f0a500] font-bold'
+            : 'bg-[#2a2118] text-[#dbb97a] border-[#3d2e1e] hover:border-[#f0a500]'
         }`}
       >
         <Compass className="w-3.5 h-3.5" />
@@ -62,8 +62,8 @@ export const PlanActions: React.FC<PlanActionsProps> = ({ currentMode, onRefacto
         disabled={loadingMode !== null}
         className={`px-3 py-1.5 text-xs font-mono uppercase border transition cursor-pointer flex items-center space-x-1.5 rounded ${
           currentMode === 'intense'
-            ? 'bg-[#818cf8] text-[#090a0f] border-[#818cf8] font-bold'
-            : 'bg-[#161a26] text-[#cbd2e1] border-[#202534] hover:border-[#818cf8]'
+            ? 'bg-[#f0a500] text-[#0d0d0d] border-[#f0a500] font-bold'
+            : 'bg-[#2a2118] text-[#dbb97a] border-[#3d2e1e] hover:border-[#f0a500]'
         }`}
       >
         <Zap className="w-3.5 h-3.5" />

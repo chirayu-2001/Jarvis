@@ -63,10 +63,10 @@ export const SocialRadar: React.FC = () => {
           <div key={post.id} className="post-card">
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#f7f7f7] px-2 py-0.5 border border-[#333333] bg-[#141414]">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#f0e6d3] px-2 py-0.5 border border-[#3d2e1e] bg-[#2a2118]">
                   {post.source}
                 </span>
-                <span className="text-[10px] font-mono text-[#666666]">→ {post.interestTag}</span>
+                <span className="text-[10px] font-mono text-[#b89b6a]">→ {post.interestTag}</span>
               </div>
               <strong>{post.title}</strong>
               <p>{post.why}</p>

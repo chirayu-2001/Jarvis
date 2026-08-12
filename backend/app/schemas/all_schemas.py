@@ -1,10 +1,10 @@
 from uuid import UUID
-from datetime import datetime
+from datetime import datetime, date
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, ConfigDict, Field, EmailStr
 
 from app.db.models import (
-    TrajectoryKind, TrajectoryStatus, PlanMode, PermissionStatus, EventType
+    TrajectoryKind, TrajectoryStatus, PlanMode, PermissionStatus, EventType, TaskStatus
 )
 
 # User Schemas
@@ -69,23 +69,43 @@ class PlanStepBase(BaseModel):
     week_label: Optional[str] = None
     step_order: int
     is_done: bool = False
+    status: TaskStatus = TaskStatus.TODO
+    scheduled_date: Optional[date] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    recurrence_rule: Optional[str] = None
 
 class PlanStepCreate(BaseModel):
+    trajectory_id: Optional[UUID] = None
     title: str
     detail: Optional[str] = None
-    week_label: Optional[str] = None
-    step_order: int
+    status: TaskStatus = TaskStatus.TODO
+    scheduled_date: Optional[date] = None
+    scheduled_dates: Optional[List[date]] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    recurrence_rule: Optional[str] = None
 
 class PlanStepRead(PlanStepBase):
     id: UUID
-    plan_id: UUID
+    plan_id: Optional[UUID] = None
+    parent_step_id: Optional[UUID] = None
     completed_at: Optional[datetime] = None
     model_config = ConfigDict(from_attributes=True)
 
 class PlanStepToggleResponse(BaseModel):
     step_id: UUID
     is_done: bool
+    status: TaskStatus
     completed_at: Optional[datetime] = None
+
+class PlanStepUpdate(BaseModel):
+    title: Optional[str] = None
+    detail: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    scheduled_date: Optional[date] = None
+    recurrence_rule: Optional[str] = None
+    parent_step_id: Optional[UUID] = None
 
 # Plan Schemas
 class PlanBase(BaseModel):
@@ -115,12 +135,20 @@ class TrajectoryDetailRead(TrajectoryRead):
     active_plan: Optional[PlanRead] = None
     recent_events_count: int = 0
 
+class PlanStepWithTrajectoryRead(PlanStepRead):
+    trajectory_id: Optional[UUID] = None
+    trajectory_title: Optional[str] = None
+    trajectory_kind: Optional[str] = None
+    
+
+
 # Journal Entry Schemas
 class JournalEntryBase(BaseModel):
     text: str
 
 class JournalEntryCreate(JournalEntryBase):
     user_id: Optional[UUID] = None
+    created_at_override: Optional[datetime] = None
 
 class JournalAnalysisResponse(BaseModel):
     journal_id: UUID
@@ -135,6 +163,11 @@ class JournalEntryRead(JournalEntryBase):
     linked_trajectory_ids: List[str] = []
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
+
+class DayRead(BaseModel):
+    date: date
+    tasks: List[PlanStepWithTrajectoryRead] = []
+    journal_entries: List[JournalEntryRead] = []
 
 # Journey Event Schemas
 class JourneyEventBase(BaseModel):

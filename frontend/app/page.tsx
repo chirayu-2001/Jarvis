@@ -6,7 +6,6 @@ import { apiClient } from '@/lib/api-client';
 import { TrajectoryGrid } from '@/components/trajectory/TrajectoryGrid';
 import { WorldCalendar } from '@/components/timeline/WorldCalendar';
 import { SocialRadar } from '@/components/radar/SocialRadar';
-import { JournalPanel } from '@/components/journal/JournalPanel';
 import { PermissionCard } from '@/components/journal/PermissionCard';
 import { ShieldCheck } from 'lucide-react';
 
@@ -98,8 +97,8 @@ export default function DiscoveryPage() {
       {permissions.length > 0 && (
         <section className="space-y-3 pt-2">
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-[#fbbf24]" />
-            <h2 className="text-xs uppercase font-mono tracking-widest text-[#f3f4f8] font-semibold">
+            <ShieldCheck className="w-4 h-4 text-[#ff8f00]" />
+            <h2 className="text-xs uppercase font-mono tracking-widest text-[#f0e6d3] font-semibold">
               Pending AI Refactor Proposals ({permissions.length})
             </h2>
           </div>
@@ -122,7 +121,7 @@ export default function DiscoveryPage() {
         </div>
 
         {loading ? (
-          <div className="p-12 text-center text-xs font-mono text-[#8b94a8] border border-[#202534]">
+          <div className="p-12 text-center text-xs font-mono text-[#b89b6a] border border-[#3d2e1e]">
             Loading continuity trajectories...
           </div>
         ) : (
@@ -136,7 +135,6 @@ export default function DiscoveryPage() {
       {/* ─── Lower Section: Information Diet & Journal ─── */}
       <div className="home-lower">
         <SocialRadar />
-        <JournalPanel />
       </div>
     </div>
   );

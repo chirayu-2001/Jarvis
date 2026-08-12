@@ -36,40 +36,40 @@ export const PermissionCard: React.FC<PermissionCardProps> = ({ permission, onRe
     <div
       className={`p-4 border transition-all ${
         isPending
-          ? 'bg-[#0c0c0c] border-[#f7f7f7] shadow-xl'
-          : 'bg-[#050505] border-[#252525] opacity-60'
+          ? 'bg-[#1e1812] border-[#f0e6d3] shadow-xl'
+          : 'bg-[#0d0d0d] border-[#3d2e1e] opacity-60'
       }`}
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-2">
           <ShieldAlert
-            className={`w-4 h-4 ${isPending ? 'text-[#f7f7f7]' : 'text-[#666666]'}`}
+            className={`w-4 h-4 ${isPending ? 'text-[#f0e6d3]' : 'text-[#b89b6a]'}`}
           />
-          <span className="text-[10px] font-mono uppercase tracking-widest text-[#f7f7f7]">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-[#f0e6d3]">
             AI Refactor Boundary Proposal
           </span>
         </div>
         <span
           className={`text-[9px] font-mono uppercase px-2 py-0.5 border ${
             isPending
-              ? 'border-[#f7f7f7] text-[#f7f7f7]'
-              : 'border-[#333333] text-[#666666]'
+              ? 'border-[#f0e6d3] text-[#f0e6d3]'
+              : 'border-[#3d2e1e] text-[#b89b6a]'
           }`}
         >
           {isPending ? 'Pending User Approval' : resolved}
         </span>
       </div>
 
-      <p className="text-xs text-[#cfcfcf] my-2 leading-relaxed font-sans">
+      <p className="text-xs text-[#dbb97a] my-2 leading-relaxed font-sans">
         {permission.proposal}
       </p>
 
       {isPending && (
-        <div className="flex items-center justify-end space-x-3 pt-2 border-t border-[#1a1a1a]">
+        <div className="flex items-center justify-end space-x-3 pt-2 border-t border-[#3d2e1e]">
           <button
             onClick={() => handleAction('reject')}
             disabled={loading}
-            className="text-xs font-mono text-[#9a9a9a] hover:text-white px-3 py-1 flex items-center space-x-1 cursor-pointer"
+            className="text-xs font-mono text-[#b89b6a] hover:text-white px-3 py-1 flex items-center space-x-1 cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
             <span>Reject</span>
@@ -77,7 +77,7 @@ export const PermissionCard: React.FC<PermissionCardProps> = ({ permission, onRe
           <button
             onClick={() => handleAction('approve')}
             disabled={loading}
-            className="bg-[#f7f7f7] text-[#050505] hover:bg-white px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
+            className="bg-[#f0e6d3] text-[#0d0d0d] hover:bg-white px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
           >
             <Check className="w-3.5 h-3.5" />
             <span>Allow Refactor</span>

@@ -4,6 +4,7 @@ import json
 import uuid
 import asyncio
 from typing import List, Dict, Any, AsyncGenerator
+from datetime import datetime
 
 from app.ai.router import ai_router
 from app.db.models import Trajectory, ChatThread, ChatMessage
@@ -17,9 +18,11 @@ class AgentHarness:
         os.makedirs(self.sandbox_dir, exist_ok=True)
 
     def _get_system_prompt(self) -> str:
+        current_date = datetime.now().strftime('%Y-%m-%d')
         return (
             "You are Jarvis, an elite AI Software Engineer and Planner. "
             "You are helping the user manage this trajectory, answering questions, or scaffolding custom UI.\n"
+            f"Current Date: {current_date}\n"
             f"Trajectory: {self.trajectory.title} (Kind: {self.trajectory.kind})\n"
             f"Goal: {self.trajectory.goal}\n\n"
             "You must use tools to scaffold the environment. Output your thoughts inside <thought> tags, "
@@ -29,13 +32,13 @@ class AgentHarness:
             "CRITICAL: You may only output ONE <tool_call> per response.\n\n"
             "Available tools:\n"
             "1. finalize_plan\n"
-            "   args: {\"steps\": [{\"title\":\"...\",\"detail\":\"...\",\"week_label\":\"...\",\"step_order\":1}], \"widgets\": []}\n"
-            "   desc: Completes the planning phase and returns the steps. This automatically builds the interactive plan UI.\n\n"
+            "   args: {\"steps\": [{\"title\":\"...\",\"detail\":\"...\",\"week_label\":\"...\",\"step_order\":1, \"scheduled_date\": \"YYYY-MM-DD\"}], \"widgets\": []}\n"
+            "   desc: Completes the planning phase and returns the steps. You MUST assign a scheduled_date to each step based on the user's request (e.g. 'start tomorrow' means tomorrow's date). This automatically builds the interactive plan UI.\n\n"
             "Example Tool Call:\n"
             "<tool_call>\n"
             "{\n"
             "  \"name\": \"finalize_plan\",\n"
-            "  \"arguments\": {\"steps\": [{\"title\": \"Step 1\", \"detail\": \"...\", \"week_label\": \"Week 1\", \"step_order\": 1}], \"widgets\": []}\n"
+            "  \"arguments\": {\"steps\": [{\"title\": \"Step 1\", \"detail\": \"...\", \"week_label\": \"Week 1\", \"step_order\": 1, \"scheduled_date\": \"2024-05-15\"}], \"widgets\": []}\n"
             "}\n"
             "</tool_call>\n"
         )

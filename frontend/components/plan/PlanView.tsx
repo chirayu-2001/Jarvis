@@ -17,11 +17,11 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
   if (!plan || !plan.steps || plan.steps.length === 0) {
     return (
       <div className="panel text-center py-12 space-y-3">
-        <div className="w-12 h-12 rounded-full bg-[#161a26] border border-[#202534] flex items-center justify-center mx-auto">
-          <Bot className="w-6 h-6 text-[#818cf8]" />
+        <div className="w-12 h-12 rounded-full bg-[#2a2118] border border-[#3d2e1e] flex items-center justify-center mx-auto">
+          <Bot className="w-6 h-6 text-[#f0a500]" />
         </div>
-        <strong className="text-base text-[#f3f4f8] block">No execution plan generated yet</strong>
-        <p className="text-xs text-[#8b94a8] max-w-md mx-auto leading-relaxed">
+        <strong className="text-base text-[#f0e6d3] block">No execution plan generated yet</strong>
+        <p className="text-xs text-[#b89b6a] max-w-md mx-auto leading-relaxed">
           Set an end goal above and ask Jarvis to construct a trajectory you can work, track, and refactor.
         </p>
         <button
@@ -31,8 +31,8 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
             }));
           }}
           style={{
-             background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
-             color: '#090a0f',
+             background: 'linear-gradient(135deg, #f0a500, #4fc3f7)',
+             color: '#0d0d0d',
              padding: '0.65rem 1.25rem',
              borderRadius: '4px',
              fontWeight: 600,
@@ -58,26 +58,26 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
       label: (
         <div style={{ 
           padding: '12px', 
-          background: step.is_done ? 'rgba(52, 211, 153, 0.1)' : '#161a26', 
-          border: `1px solid ${step.is_done ? '#34d399' : '#202534'}`,
+          background: step.is_done ? 'rgba(52, 211, 153, 0.1)' : '#2a2118', 
+          border: `1px solid ${step.is_done ? '#4fc3f7' : '#3d2e1e'}`,
           color: '#fff', 
           borderRadius: '6px', 
           width: '280px',
           textAlign: 'left'
         }}>
            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-             <span style={{ fontSize: '10px', color: '#818cf8', fontWeight: 600, fontFamily: 'monospace' }}>{step.week_label}</span>
+             <span style={{ fontSize: '10px', color: '#f0a500', fontWeight: 600, fontFamily: 'monospace' }}>{step.week_label}</span>
              <button 
                 onClick={(e) => { e.stopPropagation(); onToggleStep(step.id); }}
                 style={{
-                  background: step.is_done ? '#34d399' : 'transparent',
-                  border: `1px solid ${step.is_done ? '#34d399' : '#8b94a8'}`,
+                  background: step.is_done ? '#4fc3f7' : 'transparent',
+                  border: `1px solid ${step.is_done ? '#4fc3f7' : '#b89b6a'}`,
                   width: '16px', height: '16px', borderRadius: '50%', cursor: 'pointer'
                 }}
              />
            </div>
-           <div style={{ fontWeight: 'bold', fontSize: '13px', margin: '8px 0 4px', color: '#f3f4f8' }}>{step.title}</div>
-           <div style={{ fontSize: '11px', color: '#8b94a8', lineHeight: 1.4 }}>{step.detail}</div>
+           <div style={{ fontWeight: 'bold', fontSize: '13px', margin: '8px 0 4px', color: '#f0e6d3' }}>{step.title}</div>
+           <div style={{ fontSize: '11px', color: '#b89b6a', lineHeight: 1.4 }}>{step.detail}</div>
         </div>
       )
     },
@@ -90,21 +90,21 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
     source: step.id,
     target: plan.steps[index+1].id,
     animated: !step.is_done,
-    style: { stroke: step.is_done ? '#34d399' : '#818cf8', strokeWidth: 2 }
+    style: { stroke: step.is_done ? '#4fc3f7' : '#f0a500', strokeWidth: 2 }
   })), [plan.steps]);
 
   return (
     <div className="panel space-y-5">
       {/* Plan Header & Progress Bar */}
-      <div className="space-y-3 border-b border-[#202534] pb-4">
+      <div className="space-y-3 border-b border-[#3d2e1e] pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Layers className="w-4 h-4 text-[#818cf8]" />
-            <h3 className="text-xs uppercase font-mono tracking-wider text-[#f3f4f8] font-bold">
+            <Layers className="w-4 h-4 text-[#f0a500]" />
+            <h3 className="text-xs uppercase font-mono tracking-wider text-[#f0e6d3] font-bold">
               Dynamic Node Execution Plan ({plan.mode} pace)
             </h3>
           </div>
-          <span className="text-xs font-mono text-[#8b94a8]">
+          <span className="text-xs font-mono text-[#b89b6a]">
             {completedCount} / {plan.steps.length} Steps Completed ({progressPercent}%)
           </span>
         </div>
@@ -116,15 +116,15 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
       </div>
 
       {/* Node Graph Area */}
-      <div style={{ height: '600px', width: '100%', background: '#090a0f', borderRadius: '6px', border: '1px solid #202534' }}>
+      <div style={{ height: '600px', width: '100%', background: '#0d0d0d', borderRadius: '6px', border: '1px solid #3d2e1e' }}>
         <ReactFlow nodes={nodes} edges={edges} fitView>
-          <Background color="#202534" gap={16} />
-          <Controls style={{ button: { background: '#161a26', border: '1px solid #202534', fill: '#f3f4f8' } }} />
+          <Background color="#3d2e1e" gap={16} />
+          <Controls style={{ background: '#2a2118', border: '1px solid #3d2e1e', fill: '#f0e6d3' }} />
         </ReactFlow>
       </div>
 
       {/* Actions */}
-      <div className="pt-2 border-t border-[#202534]">
+      <div className="pt-2 border-t border-[#3d2e1e]">
         <PlanActions currentMode={plan.mode} onRefactor={onRefactorPlan} />
       </div>
     </div>

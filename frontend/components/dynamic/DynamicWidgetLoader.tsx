@@ -22,7 +22,7 @@ export const DynamicWidgetLoader: React.FC<Props> = ({ widgetName }) => {
     );
   }), {
     loading: () => (
-      <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[#202534] bg-[#11141d] rounded text-[#8b94a8]">
+      <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[#3d2e1e] bg-[#1e1812] rounded text-[#b89b6a]">
         <Loader2 className="w-5 h-5 animate-spin mb-2" />
         <span className="text-xs font-mono">Compiling {cleanName}...</span>
       </div>
@@ -32,7 +32,7 @@ export const DynamicWidgetLoader: React.FC<Props> = ({ widgetName }) => {
 
   return (
     <div className="dynamic-widget-wrapper my-4">
-      <Suspense fallback={<div className="animate-pulse h-32 bg-[#11141d] rounded border border-[#202534]" />}>
+      <Suspense fallback={<div className="animate-pulse h-32 bg-[#1e1812] rounded border border-[#3d2e1e]" />}>
         <DynamicComponent />
       </Suspense>
     </div>

@@ -9,15 +9,15 @@ interface AddTrajectoryCardProps {
 }
 
 const kindOptions: { kind: string; label: string; icon: React.ReactNode; desc: string }[] = [
-  { kind: 'interest', label: 'Interest', icon: <Compass style={{ width: '1rem', height: '1rem', color: '#818cf8' }} />, desc: 'Curiosity & workflow' },
-  { kind: 'career', label: 'Career Move', icon: <Briefcase style={{ width: '1rem', height: '1rem', color: '#fbbf24' }} />, desc: 'Job change & leverage' },
-  { kind: 'money', label: 'Money System', icon: <DollarSign style={{ width: '1rem', height: '1rem', color: '#34d399' }} />, desc: 'Investment & assets' },
-  { kind: 'travel', label: 'Trip Plan', icon: <MapPin style={{ width: '1rem', height: '1rem', color: '#38bdf8' }} />, desc: 'Solo travel & map' },
-  { kind: 'personal', label: 'Personal Plan', icon: <Target style={{ width: '1rem', height: '1rem', color: '#c084fc' }} />, desc: 'Life operating rule' },
-  { kind: 'creative', label: 'Creative', icon: <Sparkles style={{ width: '1rem', height: '1rem', color: '#f472b6' }} />, desc: 'Artifacts & shipping' },
-  { kind: 'learning', label: 'Learning', icon: <BookOpen style={{ width: '1rem', height: '1rem', color: '#22d3ee' }} />, desc: 'Notes & compounding' },
-  { kind: 'health', label: 'Health', icon: <HeartPulse style={{ width: '1rem', height: '1rem', color: '#fb7185' }} />, desc: 'Energy floor & routine' },
-  { kind: 'custom', label: '+ Custom Category', icon: <Tag style={{ width: '1rem', height: '1rem', color: '#a7f3d0' }} />, desc: 'Define your own category' },
+  { kind: 'interest', label: 'Interest', icon: <Compass style={{ width: '1rem', height: '1rem', color: '#f0a500' }} />, desc: 'Curiosity & workflow' },
+  { kind: 'career', label: 'Career Move', icon: <Briefcase style={{ width: '1rem', height: '1rem', color: '#ff8f00' }} />, desc: 'Job change & leverage' },
+  { kind: 'money', label: 'Money System', icon: <DollarSign style={{ width: '1rem', height: '1rem', color: '#4fc3f7' }} />, desc: 'Investment & assets' },
+  { kind: 'travel', label: 'Trip Plan', icon: <MapPin style={{ width: '1rem', height: '1rem', color: '#4fc3f7' }} />, desc: 'Solo travel & map' },
+  { kind: 'personal', label: 'Personal Plan', icon: <Target style={{ width: '1rem', height: '1rem', color: '#4fc3f7' }} />, desc: 'Life operating rule' },
+  { kind: 'creative', label: 'Creative', icon: <Sparkles style={{ width: '1rem', height: '1rem', color: '#e63946' }} />, desc: 'Artifacts & shipping' },
+  { kind: 'learning', label: 'Learning', icon: <BookOpen style={{ width: '1rem', height: '1rem', color: '#4fc3f7' }} />, desc: 'Notes & compounding' },
+  { kind: 'health', label: 'Health', icon: <HeartPulse style={{ width: '1rem', height: '1rem', color: '#e63946' }} />, desc: 'Energy floor & routine' },
+  { kind: 'custom', label: '+ Custom Category', icon: <Tag style={{ width: '1rem', height: '1rem', color: '#4fc3f7' }} />, desc: 'Define your own category' },
 ];
 
 export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) => {
@@ -56,7 +56,7 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
         onClick={() => setIsOpen(true)}
         className="add-interest"
         style={{
-          border: '1px dashed #202534',
+          border: '1px dashed #3d2e1e',
           background: 'rgba(17, 20, 29, 0.5)',
           minHeight: '24rem',
           width: '100%',
@@ -74,20 +74,20 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
         <div style={{
           width: '3.5rem',
           height: '3.5rem',
-          border: '1px solid #202534',
-          background: '#161a26',
+          border: '1px solid #3d2e1e',
+          background: '#2a2118',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '1rem'
         }}>
-          <Plus style={{ width: '1.75rem', height: '1.75rem', color: '#818cf8' }} />
+          <Plus style={{ width: '1.75rem', height: '1.75rem', color: '#f0a500' }} />
         </div>
-        <strong style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f3f4f8' }}>
+        <strong style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f0e6d3' }}>
           Add a new trajectory
         </strong>
-        <em style={{ fontSize: '0.8rem', color: '#8b94a8', fontStyle: 'normal', marginTop: '0.5rem', maxWidth: '15rem', lineHeight: 1.4 }}>
+        <em style={{ fontSize: '0.8rem', color: '#b89b6a', fontStyle: 'normal', marginTop: '0.5rem', maxWidth: '15rem', lineHeight: 1.4 }}>
           It can stay curious, become a plan, or quietly disappear.
         </em>
       </button>
@@ -103,14 +103,14 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
             alignItems: 'center',
             justifyContent: 'center',
             padding: '1rem',
-            background: 'rgba(9, 10, 15, 0.88)',
+            background: 'rgba(13, 13, 13, 0.88)',
             backdropFilter: 'blur(12px)'
           }}
         >
           <div
             style={{
-              background: '#11141d',
-              border: '1px solid #202534',
+              background: '#1e1812',
+              border: '1px solid #3d2e1e',
               borderRadius: '8px',
               maxWidth: '34rem',
               width: '100%',
@@ -124,19 +124,19 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
             }}
           >
             {/* Modal Header */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #202534', paddingBottom: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #3d2e1e', paddingBottom: '0.85rem' }}>
               <div>
                 <span className="kicker" style={{ margin: 0 }}>NEW TRAJECTORY</span>
-                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#f3f4f8' }}>Add Trajectory to Your World</h3>
+                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#f0e6d3' }}>Add Trajectory to Your World</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 style={{
                   padding: '0.4rem',
-                  border: '1px solid #202534',
-                  background: '#161a26',
-                  color: '#8b94a8',
+                  border: '1px solid #3d2e1e',
+                  background: '#2a2118',
+                  color: '#b89b6a',
                   borderRadius: '4px',
                   cursor: 'pointer'
                 }}
@@ -148,7 +148,7 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
               {/* Title Input */}
               <div>
-                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8b94a8', display: 'block', marginBottom: '0.4rem' }}>
+                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#b89b6a', display: 'block', marginBottom: '0.4rem' }}>
                   Trajectory Title *
                 </label>
                 <input
@@ -160,9 +160,9 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                   autoFocus
                   style={{
                     width: '100%',
-                    background: '#090a0f',
-                    border: '1px solid #202534',
-                    color: '#f3f4f8',
+                    background: '#0d0d0d',
+                    border: '1px solid #3d2e1e',
+                    color: '#f0e6d3',
                     padding: '0.75rem',
                     fontSize: '0.9rem',
                     borderRadius: '4px',
@@ -173,7 +173,7 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
 
               {/* Kind Options Pill Grid */}
               <div>
-                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8b94a8', display: 'block', marginBottom: '0.5rem' }}>
+                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#b89b6a', display: 'block', marginBottom: '0.5rem' }}>
                   Select Category / Kind
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '0.5rem' }}>
@@ -188,14 +188,14 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                         gap: '0.5rem',
                         padding: '0.6rem',
                         borderRadius: '4px',
-                        border: selectedKind === opt.kind ? '1px solid #818cf8' : '1px solid #202534',
-                        background: selectedKind === opt.kind ? 'rgba(129, 140, 248, 0.15)' : '#161a26',
-                        color: selectedKind === opt.kind ? '#f3f4f8' : '#cbd2e1',
+                        border: selectedKind === opt.kind ? '1px solid #f0a500' : '1px solid #3d2e1e',
+                        background: selectedKind === opt.kind ? 'rgba(79, 195, 247, 0.15)' : '#2a2118',
+                        color: selectedKind === opt.kind ? '#f0e6d3' : '#dbb97a',
                         textAlign: 'left',
                         cursor: 'pointer'
                       }}
                     >
-                      <div style={{ padding: '0.3rem', background: '#090a0f', borderRadius: '4px', border: '1px solid #202534', display: 'flex', alignItems: 'center' }}>
+                      <div style={{ padding: '0.3rem', background: '#0d0d0d', borderRadius: '4px', border: '1px solid #3d2e1e', display: 'flex', alignItems: 'center' }}>
                         {opt.icon}
                       </div>
                       <div>
@@ -208,8 +208,8 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
 
               {/* Custom Category Text Field (Visible if Custom Selected) */}
               {selectedKind === 'custom' && (
-                <div style={{ background: '#161a26', padding: '0.85rem', border: '1px solid #818cf8', borderRadius: '4px' }}>
-                  <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#818cf8', display: 'block', marginBottom: '0.4rem' }}>
+                <div style={{ background: '#2a2118', padding: '0.85rem', border: '1px solid #f0a500', borderRadius: '4px' }}>
+                  <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#f0a500', display: 'block', marginBottom: '0.4rem' }}>
                     Custom Category Name *
                   </label>
                   <input
@@ -220,9 +220,9 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                     required
                     style={{
                       width: '100%',
-                      background: '#090a0f',
-                      border: '1px solid #202534',
-                      color: '#f3f4f8',
+                      background: '#0d0d0d',
+                      border: '1px solid #3d2e1e',
+                      color: '#f0e6d3',
                       padding: '0.75rem',
                       fontSize: '0.9rem',
                       borderRadius: '4px',
@@ -234,7 +234,7 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
 
               {/* Goal Input */}
               <div>
-                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8b94a8', display: 'block', marginBottom: '0.4rem' }}>
+                <label style={{ fontSize: '0.72rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#b89b6a', display: 'block', marginBottom: '0.4rem' }}>
                   Initial End Goal (Optional)
                 </label>
                 <input
@@ -244,9 +244,9 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                   placeholder="e.g. Build personal MVP or plan 7-day Japan itinerary"
                   style={{
                     width: '100%',
-                    background: '#090a0f',
-                    border: '1px solid #202534',
-                    color: '#f3f4f8',
+                    background: '#0d0d0d',
+                    border: '1px solid #3d2e1e',
+                    color: '#f0e6d3',
                     padding: '0.75rem',
                     fontSize: '0.9rem',
                     borderRadius: '4px',
@@ -262,8 +262,8 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                   onClick={() => setIsOpen(false)}
                   style={{
                     flex: 1,
-                    background: '#161a26',
-                    color: '#cbd2e1',
+                    background: '#2a2118',
+                    color: '#dbb97a',
                     padding: '0.75rem',
                     fontSize: '0.75rem',
                     fontFamily: 'monospace',
@@ -271,7 +271,7 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                     letterSpacing: '0.1em',
                     fontWeight: 600,
                     borderRadius: '4px',
-                    border: '1px solid #202534',
+                    border: '1px solid #3d2e1e',
                     cursor: 'pointer'
                   }}
                 >
@@ -282,8 +282,8 @@ export const AddTrajectoryCard: React.FC<AddTrajectoryCardProps> = ({ onAdd }) =
                   disabled={submitting || !title.trim() || (selectedKind === 'custom' && !customKind.trim())}
                   style={{
                     flex: 1,
-                    background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
-                    color: '#090a0f',
+                    background: 'linear-gradient(135deg, #f0a500, #4fc3f7)',
+                    color: '#0d0d0d',
                     padding: '0.75rem',
                     fontSize: '0.75rem',
                     fontFamily: 'monospace',

@@ -17,6 +17,9 @@ class JournalService:
             ai_read="Analyzing...",
             linked_trajectory_ids=[]
         )
+        if data.created_at_override:
+            entry.created_at = data.created_at_override
+            
         db.add(entry)
         await db.commit()
         await db.refresh(entry)

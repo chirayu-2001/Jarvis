@@ -25,38 +25,38 @@ export default function JournalArchivePage() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      <div className="border-b border-[#252525] pb-4">
+      <div className="border-b border-[#3d2e1e] pb-4">
         <div className="flex items-center space-x-2">
-          <BookOpen className="w-4 h-4 text-[#f7f7f7]" />
-          <h1 className="text-xl font-bold text-[#f7f7f7] tracking-tight">Journal Reflection Archive</h1>
+          <BookOpen className="w-4 h-4 text-[#f0e6d3]" />
+          <h1 className="text-xl font-bold text-[#f0e6d3] tracking-tight">Journal Reflection Archive</h1>
         </div>
-        <p className="text-xs text-[#9a9a9a] mt-1">
+        <p className="text-xs text-[#b89b6a] mt-1">
           Chronological stream of daily thoughts and Jarvis pattern extractions.
         </p>
       </div>
 
       {loading ? (
-        <div className="p-8 text-center text-xs font-mono text-[#666666] border border-[#252525]">
+        <div className="p-8 text-center text-xs font-mono text-[#b89b6a] border border-[#3d2e1e]">
           Loading journal entries...
         </div>
       ) : entries.length === 0 ? (
-        <div className="p-8 text-center text-xs font-mono text-[#666666] border border-[#252525]">
+        <div className="p-8 text-center text-xs font-mono text-[#b89b6a] border border-[#3d2e1e]">
           No past journal entries yet. Write your first entry on the Discovery dashboard.
         </div>
       ) : (
         <div className="space-y-4">
           {entries.map((entry) => (
-            <div key={entry.id} className="bg-[#0c0c0c] border border-[#252525] p-5 space-y-3">
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#666666]">
+            <div key={entry.id} className="bg-[#1e1812] border border-[#3d2e1e] p-5 space-y-3">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#b89b6a]">
                 <span>{new Date(entry.created_at).toLocaleString()}</span>
                 <span>ENTRY ID: {entry.id.substring(0, 8)}</span>
               </div>
-              <p className="text-xs text-[#f7f7f7] font-sans leading-relaxed whitespace-pre-wrap">
+              <p className="text-xs text-[#f0e6d3] font-sans leading-relaxed whitespace-pre-wrap">
                 {entry.text}
               </p>
               {entry.ai_read && (
-                <div className="pt-3 border-t border-[#1a1a1a] flex items-start space-x-2 text-xs text-[#cfcfcf] italic bg-[#050505] p-3 border border-[#1f1f1f]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#f7f7f7] mt-0.5 shrink-0" />
+                <div className="pt-3 border-t border-[#3d2e1e] flex items-start space-x-2 text-xs text-[#dbb97a] italic bg-[#0d0d0d] p-3 border border-[#3d2e1e]">
+                  <Sparkles className="w-3.5 h-3.5 text-[#f0e6d3] mt-0.5 shrink-0" />
                   <span>Jarvis Read: "{entry.ai_read}"</span>
                 </div>
               )}

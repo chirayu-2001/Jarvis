@@ -103,7 +103,7 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
 
   if (loading) {
     return (
-      <div className="p-16 text-center text-xs font-mono text-[#8b94a8] border border-[#202534] bg-[#11141d] rounded">
+      <div className="p-16 text-center text-xs font-mono text-[#b89b6a] border border-[#3d2e1e] bg-[#1e1812] rounded">
         Loading trajectory context...
       </div>
     );
@@ -111,9 +111,9 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
 
   if (!trajectory) {
     return (
-      <div className="p-16 text-center text-xs font-mono text-[#8b94a8] border border-[#202534] bg-[#11141d] rounded space-y-4">
+      <div className="p-16 text-center text-xs font-mono text-[#b89b6a] border border-[#3d2e1e] bg-[#1e1812] rounded space-y-4">
         <div>Trajectory not found.</div>
-        <Link href="/" className="inline-block bg-[#818cf8] text-[#090a0f] px-4 py-2 font-bold uppercase tracking-wider rounded text-xs">
+        <Link href="/" className="inline-block bg-[#f0a500] text-[#0d0d0d] px-4 py-2 font-bold uppercase tracking-wider rounded text-xs">
           Return to Discovery
         </Link>
       </div>
@@ -144,15 +144,15 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               fontFamily: 'monospace',
               fontWeight: 600,
               background: 'rgba(17, 20, 29, 0.88)',
-              color: '#f3f4f8',
+              color: '#f0e6d3',
               padding: '0.5rem 0.9rem',
-              border: '1px solid #202534',
+              border: '1px solid #3d2e1e',
               borderRadius: '4px',
               backdropFilter: 'blur(8px)',
               textDecoration: 'none'
             }}
           >
-            <ArrowLeft style={{ width: '1rem', height: '1rem', color: '#818cf8' }} />
+            <ArrowLeft style={{ width: '1rem', height: '1rem', color: '#f0a500' }} />
             <span>Return to Discovery</span>
           </Link>
           
@@ -165,7 +165,7 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               fontFamily: 'monospace',
               fontWeight: 600,
               background: 'rgba(220, 38, 38, 0.2)',
-              color: '#fca5a5',
+              color: '#e63946',
               padding: '0.5rem 0.9rem',
               border: '1px solid rgba(220, 38, 38, 0.5)',
               borderRadius: '4px',
@@ -195,24 +195,24 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               <span className="kicker">STANDING OVERVIEW</span>
               <h2>Where you stand today</h2>
             </div>
-            <Compass className="w-5 h-5 text-[#818cf8]" />
+            <Compass className="w-5 h-5 text-[#f0a500]" />
           </div>
 
-          <p className="text-sm text-[#cbd2e1] leading-relaxed">
+          <p className="text-sm text-[#dbb97a] leading-relaxed">
             {trajectory.current_state || trajectory.standing}
           </p>
 
           <div className="standing-facts">
             <span>
-              <Clock3 className="w-3.5 h-3.5 text-[#38bdf8]" />
+              <Clock3 className="w-3.5 h-3.5 text-[#4fc3f7]" />
               {new Date(trajectory.last_touched).toLocaleDateString()}
             </span>
             <span>
-              <Sparkles className="w-3.5 h-3.5 text-[#818cf8]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#f0a500]" />
               {Math.round(trajectory.momentum * 100)}% Momentum
             </span>
             <span>
-              <Activity className="w-3.5 h-3.5 text-[#34d399]" />
+              <Activity className="w-3.5 h-3.5 text-[#4fc3f7]" />
               {trajectory.status}
             </span>
           </div>
@@ -225,7 +225,7 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               <span className="kicker">FIRST QUESTION</span>
               <h2>What's your end goal for now?</h2>
             </div>
-            <Target className="w-5 h-5 text-[#34d399]" />
+            <Target className="w-5 h-5 text-[#4fc3f7]" />
           </div>
 
           <div className="space-y-3" style={{ marginTop: '0.75rem' }}>
@@ -236,9 +236,9 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               placeholder={`Example: Build ${trajectory.title} MVP or master core concepts`}
               style={{
                 width: '100%',
-                background: '#090a0f',
-                border: '1px solid #202534',
-                color: '#f3f4f8',
+                background: '#0d0d0d',
+                border: '1px solid #3d2e1e',
+                color: '#f0e6d3',
                 padding: '0.75rem',
                 fontSize: '0.85rem',
                 borderRadius: '4px',
@@ -250,8 +250,8 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
               disabled={goalSubmitting || !goalDraft.trim()}
               style={{
                 width: '100%',
-                background: goalSubmitting || !goalDraft.trim() ? '#202534' : 'linear-gradient(135deg, #818cf8, #38bdf8)',
-                color: goalSubmitting || !goalDraft.trim() ? '#8b94a8' : '#090a0f',
+                background: goalSubmitting || !goalDraft.trim() ? '#3d2e1e' : 'linear-gradient(135deg, #f0a500, #4fc3f7)',
+                color: goalSubmitting || !goalDraft.trim() ? '#b89b6a' : '#0d0d0d',
                 padding: '0.75rem',
                 fontFamily: 'monospace',
                 fontWeight: 700,

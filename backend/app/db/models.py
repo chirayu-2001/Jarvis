@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 
 from sqlalchemy import (
-    String, Text, Float, Integer, Boolean, DateTime, ForeignKey, Enum as SQLEnum, JSON, ARRAY
+    String, Text, Float, Integer, Boolean, DateTime, Date, ForeignKey, Enum as SQLEnum, JSON, ARRAY
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID, JSONB
@@ -43,6 +43,12 @@ class PermissionStatus(str, enum.Enum):
     APPROVED = "approved"
     REJECTED = "rejected"
     EXPIRED = "expired"
+
+class TaskStatus(str, enum.Enum):
+    TODO = "todo"
+    IN_PROGRESS = "in_progress"
+    DONE = "done"
+    BACKLOG = "backlog"
 
 class EventType(str, enum.Enum):
     MILESTONE = "milestone"
@@ -112,12 +118,18 @@ class PlanStep(Base):
     __tablename__ = "plan_steps"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    plan_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("plans.id", ondelete="CASCADE"), nullable=False, index=True)
+    plan_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("plans.id", ondelete="CASCADE"), nullable=True, index=True)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     detail: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     week_label: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     step_order: Mapped[int] = mapped_column(Integer, nullable=False)
     is_done: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    status: Mapped[TaskStatus] = mapped_column(SQLEnum(TaskStatus), default=TaskStatus.TODO, nullable=False)
+    scheduled_date: Mapped[Optional[datetime.date]] = mapped_column(Date, nullable=True)
+    start_time: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    end_time: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    recurrence_rule: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    parent_step_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("plan_steps.id", ondelete="CASCADE"), nullable=True, index=True)
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
 
     plan: Mapped["Plan"] = relationship("Plan", back_populates="steps")

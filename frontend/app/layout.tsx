@@ -14,9 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#090a0f] text-[#f3f4f8] min-h-screen flex flex-col antialiased">
+      <body className="bg-[#0d0d0d] text-[#f0e6d3] min-h-screen flex flex-col antialiased">
         <Header />
-        <main className="max-w-7xl w-full mx-auto px-6 py-6 flex-1">
+        <main className="w-full px-6 lg:px-10 py-6 flex-1">
           {children}
         </main>
         <JarvisSidebar />

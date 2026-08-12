@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.services.trajectory_service import TrajectoryService
 from app.services.plan_service import PlanService
 from app.schemas.all_schemas import (
-    PlanCreate, PlanRefactorRequest, PlanRead, PlanStepToggleResponse
+    PlanCreate, PlanRefactorRequest, PlanRead, PlanStepToggleResponse, PlanStepUpdate, PlanStepRead, PlanStepCreate
 )
 
 from fastapi.responses import StreamingResponse
@@ -52,5 +52,27 @@ async def toggle_step(
     return PlanStepToggleResponse(
         step_id=step.id,
         is_done=step.is_done,
+        status=step.status,
         completed_at=step.completed_at
     )
+
+@router.patch("/step/{step_id}", response_model=PlanStepRead)
+async def update_step(
+    step_id: UUID,
+    data: PlanStepUpdate,
+    db: AsyncSession = Depends(get_db)
+):
+    step = await PlanService.update_step(db, step_id, data)
+    if not step:
+        raise HTTPException(status_code=404, detail="Plan step not found")
+    return step
+
+@router.post("/step", response_model=PlanStepRead)
+async def create_manual_step(
+    data: PlanStepCreate,
+    db: AsyncSession = Depends(get_db)
+):
+    step = await PlanService.create_manual_step(db, data)
+    if not step:
+        raise HTTPException(status_code=400, detail="Failed to create step")
+    return step

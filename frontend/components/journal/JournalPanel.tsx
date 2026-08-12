@@ -7,12 +7,16 @@ import { PermissionCard } from './PermissionCard';
 import { apiClient } from '@/lib/api-client';
 import { JournalAnalysisResponse } from '@/lib/types';
 
-export const JournalPanel: React.FC = () => {
+interface JournalPanelProps {
+  dateOverride?: string;
+}
+
+export const JournalPanel: React.FC<JournalPanelProps> = ({ dateOverride }) => {
   const [analysis, setAnalysis] = useState<JournalAnalysisResponse | null>(null);
 
   const handleSubmit = async (text: string) => {
     try {
-      const res = await apiClient.submitJournal(text);
+      const res = await apiClient.submitJournal(text, dateOverride);
       setAnalysis(res);
     } catch (err) {
       setAnalysis({

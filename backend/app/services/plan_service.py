@@ -6,8 +6,8 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.models import Plan, PlanStep, PlanMode, Trajectory
-from app.schemas.all_schemas import PlanCreate, PlanRefactorRequest
+from app.db.models import Plan, PlanStep, PlanMode, Trajectory, TaskStatus
+from app.schemas.all_schemas import PlanCreate, PlanRefactorRequest, PlanStepUpdate, PlanStepCreate
 from app.ai.harness import AgentHarness
 import asyncio
 
@@ -84,13 +84,23 @@ class PlanService:
         for idx, step in enumerate(steps_data, start=1):
             if not isinstance(step, dict):
                 continue
+            
+            scheduled_date_str = step.get("scheduled_date")
+            scheduled_date = None
+            if scheduled_date_str:
+                try:
+                    scheduled_date = datetime.strptime(scheduled_date_str, "%Y-%m-%d").date()
+                except ValueError:
+                    pass
+
             plan_step = PlanStep(
                 id=uuid.uuid4(),
                 plan_id=plan_id,
                 title=step.get("title", f"Step {idx} for {trajectory.title}"),
                 detail=step.get("detail"),
                 week_label=step.get("week_label", f"Week {idx}"),
-                step_order=step.get("step_order", idx)
+                step_order=step.get("step_order", idx),
+                scheduled_date=scheduled_date
             )
             db.add(plan_step)
 
@@ -114,6 +124,7 @@ class PlanService:
             return None
 
         step.is_done = not step.is_done
+        step.status = TaskStatus.DONE if step.is_done else TaskStatus.TODO
         step.completed_at = datetime.utcnow() if step.is_done else None
 
         # Update trajectory momentum on step completion
@@ -131,3 +142,93 @@ class PlanService:
         await db.commit()
         await db.refresh(step)
         return step
+
+    @staticmethod
+    async def update_step(db: AsyncSession, step_id: uuid.UUID, data: PlanStepUpdate) -> Optional[PlanStep]:
+        stmt = select(PlanStep).where(PlanStep.id == step_id)
+        res = await db.execute(stmt)
+        step = res.scalar_one_or_none()
+        if not step:
+            return None
+        
+        update_data = data.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(step, key, value)
+            
+        if "status" in update_data:
+            if update_data["status"] == TaskStatus.DONE and not step.is_done:
+                step.is_done = True
+                step.completed_at = datetime.utcnow()
+            elif update_data["status"] != TaskStatus.DONE and step.is_done:
+                step.is_done = False
+                step.completed_at = None
+                
+        await db.commit()
+        await db.refresh(step)
+        return step
+
+    @staticmethod
+    async def create_manual_step(db: AsyncSession, data: PlanStepCreate) -> Optional[PlanStep]:
+        plan = None
+        if data.trajectory_id:
+            stmt = select(Plan).where(Plan.trajectory_id == data.trajectory_id, Plan.is_active.is_(True)).limit(1)
+            res = await db.execute(stmt)
+            plan = res.scalar_one_or_none()
+            
+            if not plan:
+                plan_id = uuid.uuid4()
+                plan = Plan(
+                    id=plan_id,
+                    trajectory_id=data.trajectory_id,
+                    mode=PlanMode.BALANCED,
+                    goal_snapshot="Manual Plan",
+                    is_active=True
+                )
+                db.add(plan)
+                await db.flush()
+
+        if data.recurrence_rule:
+            # Create a single template step
+            plan_step = PlanStep(
+                id=uuid.uuid4(),
+                plan_id=plan.id if plan else None,
+                title=data.title,
+                detail=data.detail,
+                week_label="Recurring Template",
+                step_order=999,
+                status=data.status,
+                scheduled_date=None,
+                start_time=data.start_time,
+                end_time=data.end_time,
+                recurrence_rule=data.recurrence_rule
+            )
+            db.add(plan_step)
+            first_step = plan_step
+        else:
+            dates_to_schedule = data.scheduled_dates if data.scheduled_dates else []
+            if not dates_to_schedule and data.scheduled_date:
+                dates_to_schedule = [data.scheduled_date]
+            if not dates_to_schedule:
+                dates_to_schedule = [None]
+                
+            for d in dates_to_schedule:
+                plan_step = PlanStep(
+                    id=uuid.uuid4(),
+                    plan_id=plan.id if plan else None,
+                    title=data.title,
+                    detail=data.detail,
+                    week_label="Manual",
+                    step_order=999,
+                    status=data.status,
+                    scheduled_date=d,
+                    start_time=data.start_time,
+                    end_time=data.end_time
+                )
+                db.add(plan_step)
+                if not first_step:
+                    first_step = plan_step
+                
+        await db.commit()
+        if first_step:
+            await db.refresh(first_step)
+        return first_step

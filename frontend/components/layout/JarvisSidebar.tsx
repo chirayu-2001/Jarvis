@@ -8,9 +8,9 @@ import { apiClient } from '@/lib/api-client';
 
 const parseAgentMarkup = (content: string) => {
   let parsed = content;
-  parsed = parsed.replace(/<thought>([\s\S]*?)<\/thought>/g, '\n<details><summary class="text-xs text-[#8b94a8] cursor-pointer">Agent Thought</summary><div class="text-[#8b94a8] text-xs pl-2 border-l border-[#202534] mt-1 mb-2">$1</div></details>\n');
-  parsed = parsed.replace(/<tool_call>([\s\S]*?)<\/tool_call>/g, '\n<div class="text-xs text-[#818cf8] font-mono my-1">⚙️ $1</div>\n');
-  parsed = parsed.replace(/<tool_result>([\s\S]*?)<\/tool_result>/g, '\n<div class="text-xs text-[#34d399] font-mono my-1">✓ $1</div>\n');
+  parsed = parsed.replace(/<thought>([\s\S]*?)<\/thought>/g, '\n<details><summary class="text-xs text-[#b89b6a] cursor-pointer">Agent Thought</summary><div class="text-[#b89b6a] text-xs pl-2 border-l border-[#3d2e1e] mt-1 mb-2">$1</div></details>\n');
+  parsed = parsed.replace(/<tool_call>([\s\S]*?)<\/tool_call>/g, '\n<div class="text-xs text-[#f0a500] font-mono my-1">⚙️ $1</div>\n');
+  parsed = parsed.replace(/<tool_result>([\s\S]*?)<\/tool_result>/g, '\n<div class="text-xs text-[#4fc3f7] font-mono my-1">✓ $1</div>\n');
   return parsed;
 };
 
@@ -132,15 +132,15 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
         (data) => {
           let chunkText = "";
           if (data.type === 'thought') {
-             chunkText = `\n<details><summary class="text-xs text-[#8b94a8] cursor-pointer">Agent Thought</summary><div class="text-[#8b94a8] text-xs pl-2 border-l border-[#202534] mt-1 mb-2">${data.content}</div></details>\n`;
+             chunkText = `\n<details><summary class="text-xs text-[#b89b6a] cursor-pointer">Agent Thought</summary><div class="text-[#b89b6a] text-xs pl-2 border-l border-[#3d2e1e] mt-1 mb-2">${data.content}</div></details>\n`;
           } else if (data.type === 'tool_call') {
-             chunkText = `\n<div class="text-xs text-[#818cf8] font-mono my-1">⚙️ ${data.content}</div>\n`;
+             chunkText = `\n<div class="text-xs text-[#f0a500] font-mono my-1">⚙️ ${data.content}</div>\n`;
           } else if (data.type === 'tool_result') {
-             chunkText = `\n<div class="text-xs text-[#34d399] font-mono my-1">✓ ${data.content}</div>\n`;
+             chunkText = `\n<div class="text-xs text-[#4fc3f7] font-mono my-1">✓ ${data.content}</div>\n`;
           } else if (data.type === 'message') {
              chunkText = data.content;
           } else if (data.type === 'status') {
-             chunkText = `\n<div class="text-xs text-[#38bdf8] font-mono my-1 italic">[Status] ${data.content}</div>\n`;
+             chunkText = `\n<div class="text-xs text-[#4fc3f7] font-mono my-1 italic">[Status] ${data.content}</div>\n`;
           } else if (data.type === 'action' && data.action === 'refresh_plan') {
              window.dispatchEvent(new CustomEvent('plan:refreshed'));
              return;
@@ -183,9 +183,9 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
           bottom: '1.5rem',
           right: '1.5rem',
           zIndex: 9990,
-          background: 'rgba(17, 20, 29, 0.94)',
-          border: '1px solid #818cf8',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(129, 140, 248, 0.2)',
+          background: 'rgba(26, 20, 16, 0.96)',
+          border: '1px solid rgba(240, 165, 0, 0.4)',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(79, 195, 247, 0.15), 0 0 40px rgba(240, 165, 0, 0.08)',
           backdropFilter: 'blur(12px)',
           padding: '0.65rem 1.15rem',
           borderRadius: '9999px',
@@ -202,14 +202,16 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
             width: '2rem',
             height: '2rem',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
+            background: 'radial-gradient(circle, #4fc3f7 0%, #0288d1 60%, #01579b 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#090a0f',
-            boxShadow: '0 2px 8px rgba(129, 140, 248, 0.4)'
+            color: '#f0e6d3',
+            boxShadow: '0 0 12px rgba(79, 195, 247, 0.5), 0 0 25px rgba(79, 195, 247, 0.2)',
+            border: '1.5px solid rgba(79, 195, 247, 0.5)',
+            animation: 'reactorPulse 3s ease-in-out infinite'
           }}>
-            <Bot style={{ width: '1rem', height: '1rem', color: '#090a0f' }} />
+            <Bot style={{ width: '1rem', height: '1rem', color: '#0d0d0d' }} />
           </div>
           <span style={{
             position: 'absolute',
@@ -218,16 +220,16 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
             width: '0.55rem',
             height: '0.55rem',
             borderRadius: '50%',
-            background: '#34d399',
-            border: '2px solid #090a0f'
+            background: '#4fc3f7',
+            border: '2px solid #0d0d0d'
           }} />
         </div>
         <div style={{ textAlign: 'left' }}>
-          <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f3f4f8', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f0e6d3', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             <span>Ask Jarvis AI</span>
-            <ChevronRight style={{ width: '0.85rem', height: '0.85rem', color: '#818cf8' }} />
+            <ChevronRight style={{ width: '0.85rem', height: '0.85rem', color: '#f0a500' }} />
           </div>
-          <div style={{ fontSize: '0.68rem', fontFamily: 'monospace', color: '#8b94a8' }}>
+          <div style={{ fontSize: '0.68rem', fontFamily: "'Orbitron', monospace", color: '#b89b6a', letterSpacing: '0.06em' }}>
             Context: {contextPage}
           </div>
         </div>
@@ -240,8 +242,8 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(9, 10, 15, 0.75)',
-            backdropFilter: 'blur(4px)',
+            background: 'rgba(13, 13, 13, 0.8)',
+            backdropFilter: 'blur(6px)',
             zIndex: 9998
           }}
         />
@@ -256,9 +258,9 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
           height: '100vh',
           width: '420px',
           maxWidth: '92vw',
-          background: '#11141d',
-          borderLeft: '1px solid #202534',
-          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.7)',
+          background: 'linear-gradient(180deg, #1e1812 0%, #0d0d0d 100%)',
+          borderLeft: '1px solid #3d2e1e',
+          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.7), -2px 0 20px rgba(230, 57, 70, 0.05)',
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
@@ -270,31 +272,31 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
         aria-label="Jarvis AI Drawer"
       >
         {/* Drawer Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #202534', paddingBottom: '0.85rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #3d2e1e', paddingBottom: '0.85rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{
               width: '2.25rem',
               height: '2.25rem',
               borderRadius: '4px',
-              background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
+              background: 'linear-gradient(135deg, #f0a500, #4fc3f7)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <Bot style={{ width: '1.2rem', height: '1.2rem', color: '#090a0f' }} />
+              <Bot style={{ width: '1.2rem', height: '1.2rem', color: '#0d0d0d' }} />
             </div>
             <div>
               <span className="kicker" style={{ margin: 0 }}>GLOBAL AI LAYER</span>
-              <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#f3f4f8' }}>Jarvis Assistant</h2>
+              <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#f0e6d3' }}>Jarvis Assistant</h2>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
             style={{
               padding: '0.4rem',
-              border: '1px solid #202534',
-              background: '#161a26',
-              color: '#8b94a8',
+              border: '1px solid #3d2e1e',
+              background: '#2a2118',
+              color: '#b89b6a',
               borderRadius: '4px',
               cursor: 'pointer'
             }}
@@ -307,7 +309,7 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
         {/* Current Context Box */}
         <div className="context-box" style={{ margin: '0.85rem 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
-            <Sparkles style={{ width: '0.85rem', height: '0.85rem', color: '#818cf8' }} />
+            <Sparkles style={{ width: '0.85rem', height: '0.85rem', color: '#f0a500' }} />
             <span>ACTIVE VIEW CONTEXT</span>
           </div>
           <p>
@@ -352,7 +354,7 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
             handleSend();
           }}
           className="chat-input"
-          style={{ paddingTop: '0.75rem', borderTop: '1px solid #202534' }}
+          style={{ paddingTop: '0.75rem', borderTop: '1px solid #3d2e1e' }}
         >
           <textarea
             ref={inputRef}
@@ -375,7 +377,7 @@ export const JarvisSidebar: React.FC<JarvisSidebarProps> = (props) => {
               flex: 1,
               background: 'transparent',
               border: 'none',
-              color: '#f3f4f8',
+              color: '#f0e6d3',
               outline: 'none',
               resize: 'none',
               padding: '0.5rem 0',
