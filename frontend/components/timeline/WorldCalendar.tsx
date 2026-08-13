@@ -61,7 +61,6 @@ export const WorldCalendar: React.FC = () => {
         <div>
           <span className="kicker">TIMELINE / 7-DAY HORIZON</span>
           <h2>Where your week connects</h2>
-          <span className="text-[#b89b6a] text-xs mt-1 block">A rolling 7-day strip. Click any day to view your journal and GenZ tasks board.</span>
         </div>
         <div className="relative flex items-center">
            <CalendarIcon 

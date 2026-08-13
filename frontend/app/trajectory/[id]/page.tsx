@@ -7,7 +7,8 @@ import { Trajectory, PlanMode } from '@/lib/types';
 import { apiClient } from '@/lib/api-client';
 import { PlanView } from '@/components/plan/PlanView';
 import { DynamicWidgetLoader } from '@/components/dynamic/DynamicWidgetLoader';
-import { ArrowLeft, Compass, Target, Clock3, Sparkles, Activity, ArrowRight, Loader2 } from 'lucide-react';
+import { AddTaskModal } from '@/components/task/AddTaskModal';
+import { ArrowLeft, Compass, Target, Clock3, Sparkles, Activity, ArrowRight, Loader2, X, Check } from 'lucide-react';
 
 const defaultPhotos: Record<string, string> = {
   ai: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
@@ -30,6 +31,9 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
   const [goalDraft, setGoalDraft] = useState('');
   const [loading, setLoading] = useState(true);
   const [goalSubmitting, setGoalSubmitting] = useState(false);
+
+  // Add Task Modal State
+  const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
   const loadDetail = async () => {
     try {
@@ -297,6 +301,16 @@ export default function TrajectoryDetailPage({ params }: { params: Promise<{ id:
         plan={trajectory.active_plan}
         onToggleStep={handleToggleStep}
         onRefactorPlan={handleRefactorPlan}
+        onOpenAddStep={() => setIsAddTaskModalOpen(true)}
+      />
+
+      {/* ─── ADD TASK MODAL ─── */}
+      <AddTaskModal
+        isOpen={isAddTaskModalOpen}
+        onClose={() => setIsAddTaskModalOpen(false)}
+        onTaskAdded={loadDetail}
+        defaultTrajectoryId={trajectoryId}
+        lockTrajectory={true}
       />
     </div>
   );

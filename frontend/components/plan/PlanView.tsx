@@ -11,9 +11,10 @@ interface PlanViewProps {
   plan?: Plan | null;
   onToggleStep: (stepId: string) => Promise<void>;
   onRefactorPlan: (mode: PlanMode) => Promise<void>;
+  onOpenAddStep?: () => void;
 }
 
-export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefactorPlan }) => {
+export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefactorPlan, onOpenAddStep }) => {
   if (!plan || !plan.steps || plan.steps.length === 0) {
     return (
       <div className="panel text-center py-12 space-y-3">
@@ -24,26 +25,49 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
         <p className="text-xs text-[#b89b6a] max-w-md mx-auto leading-relaxed">
           Set an end goal above and ask Jarvis to construct a trajectory you can work, track, and refactor.
         </p>
-        <button
-          onClick={() => {
-            window.dispatchEvent(new CustomEvent('jarvis:open', {
-              detail: { message: "Jarvis, let's build a plan. What do you need to know?" }
-            }));
-          }}
-          style={{
-             background: 'linear-gradient(135deg, #f0a500, #4fc3f7)',
-             color: '#0d0d0d',
-             padding: '0.65rem 1.25rem',
-             borderRadius: '4px',
-             fontWeight: 600,
-             fontSize: '0.8rem',
-             marginTop: '1rem',
-             cursor: 'pointer',
-             border: 'none',
-          }}
-        >
-          Build Plan with Jarvis
-        </button>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('jarvis:open', {
+                detail: { message: "Jarvis, let's build a plan. What do you need to know?" }
+              }));
+            }}
+            style={{
+               background: 'linear-gradient(135deg, #f0a500, #4fc3f7)',
+               color: '#0d0d0d',
+               padding: '0.65rem 1.25rem',
+               borderRadius: '4px',
+               fontWeight: 600,
+               fontSize: '0.8rem',
+               cursor: 'pointer',
+               border: 'none',
+            }}
+          >
+            Build Plan with Jarvis
+          </button>
+          {onOpenAddStep && (
+            <button
+              onClick={onOpenAddStep}
+              style={{
+                 background: 'transparent',
+                 color: '#f0a500',
+                 padding: '0.65rem 1.25rem',
+                 borderRadius: '4px',
+                 fontWeight: 600,
+                 fontSize: '0.8rem',
+                 cursor: 'pointer',
+                 border: '1px solid #3d2e1e',
+                 display: 'flex',
+                 alignItems: 'center',
+                 gap: '0.4rem'
+              }}
+              className="hover:border-[#f0a500] hover:bg-[#2a2118] transition-colors"
+            >
+              <Layers className="w-4 h-4" />
+              Add Manual Task
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -104,9 +128,20 @@ export const PlanView: React.FC<PlanViewProps> = ({ plan, onToggleStep, onRefact
               Dynamic Node Execution Plan ({plan.mode} pace)
             </h3>
           </div>
-          <span className="text-xs font-mono text-[#b89b6a]">
-            {completedCount} / {plan.steps.length} Steps Completed ({progressPercent}%)
-          </span>
+          <div className="flex items-center space-x-4">
+            <span className="text-xs font-mono text-[#b89b6a]">
+              {completedCount} / {plan.steps.length} Steps Completed ({progressPercent}%)
+            </span>
+            {onOpenAddStep && (
+              <button
+                onClick={onOpenAddStep}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#2a2118] text-[#f0a500] hover:bg-[#3d2e1e] border border-[#3d2e1e] rounded font-mono text-[10px] uppercase tracking-wider transition-colors"
+              >
+                <Layers className="w-3 h-3" />
+                <span>Add Task</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Progress Bar Track */}
